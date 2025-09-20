@@ -1,0 +1,73 @@
+/* Base HTML Styles */
+@import url("https://fonts.googleapis.com/css2?family=Inter&family=Rubik:ital,wght@0,400;0,700;1,400&display=swap");
+
+:root {
+  --brand: #8246af;
+  --heading: #0000002b;
+}
+
+/* CSS Reset */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 100px;
+  line-height: 80px;
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--heading);
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 100vh;
+}
+
+.hero-section {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.down-arrow {
+  font-size: 40px;
+  margin-top: 40px;
+  animation: updown 2s infinite alternate; /* Apply the 'pulse' animation */
+}
+
+@keyframes updown {
+  0%,
+  100% {
+    transform: translateY(0); /* Starting and ending position */
+  }
+  50% {
+    transform: translateY(-10px); /* Highest point of the bounce */
+  }
+}
+
+.biography-section {
+  background-color: rgb(181, 219, 242);
+}
+
+img {
+  width: 300px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
