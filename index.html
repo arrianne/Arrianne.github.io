@@ -14,10 +14,27 @@
       href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
       rel="stylesheet"
     />
+
     <title>Arrianne</title>
   </head>
   <body>
-    <header></header>
+    <header>
+      <!-- Burger Menu Button -->
+      <div class="burger-menu" id="burger-menu">
+        <div class="line line-1"></div>
+        <div class="line line-2"></div>
+        <div class="line line-3"></div>
+      </div>
+
+      <!-- Menu -->
+      <nav class="nav-menu" id="nav-menu">
+        <ul>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
     <section class="hero-section">
       <h1>
         Arri<br />
@@ -25,7 +42,7 @@
       </h1>
       <span class="down-arrow">&#8595;</span>
     </section>
-    <section class="biography-section">
+    <section class="biography-section" id="about">
       <div class="biography-title">
         <div class="big-digits">01</div>
         <div class="line_and_text">
@@ -44,5 +61,6 @@
       </div>
     </section>
     <section class="contact-section"></section>
+    <script src="script.js"></script>
   </body>
 </html>
