@@ -48,7 +48,7 @@ section {
   justify-content: center;
   align-items: center;
   background-color: white;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .big-digits {
@@ -116,4 +116,24 @@ section {
 img {
   width: 100%;
   margin-bottom: 40px;
+}
+
+/* Styles for screens 768px and wider (e.g., tablets and desktop) */
+@media screen and (min-width: 768px) {
+  section {
+    max-width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .image_and_paragraph {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .biography-title {
+    width: 100%;
+  }
+  img {
+    width: 60%;
+    margin-bottom: 0;
+  }
 }
