@@ -23,11 +23,24 @@ ul {
 
 h1 {
   font-size: 100px;
-  line-height: 80px;
-  font-family: "Anton", sans-serif;
-  font-weight: 400;
+  line-height: 60px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
   font-style: normal;
   color: var(--heading);
+}
+
+h2 {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 30px;
+  text-transform: uppercase;
+}
+
+p {
+  font-family: "Nunito Sans", sans-serif;
+  margin: 50px;
 }
 
 section {
@@ -36,6 +49,24 @@ section {
   align-items: center;
   background-color: white;
   height: 100vh;
+}
+
+.big-digits {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 100px;
+  line-height: 100px;
+  font-weight: 300;
+  margin-right: 40px;
+}
+
+.line_horizontal {
+  width: 60px;
+  height: 2px;
+  margin-bottom: 8px;
+
+  background-color: #77787a;
+
+  color: #77787a;
 }
 
 .hero-section {
@@ -63,11 +94,26 @@ section {
 }
 
 .biography-section {
-  background-color: rgb(181, 219, 242);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.biography-title {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+}
+
+.line_and_text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 8px;
 }
 
 img {
-  width: 300px;
-  border-radius: 50%;
-  margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 40px;
 }
