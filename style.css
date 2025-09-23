@@ -105,6 +105,11 @@ section {
   justify-content: center;
 }
 
+.image_and_paragraph {
+  display: flex;
+  flex-direction: column;
+}
+
 .section-title {
   display: flex;
   flex-direction: row;
@@ -119,8 +124,8 @@ section {
 }
 
 img {
-  width: 100%;
-  margin-bottom: 40px;
+  width: 80%;
+  margin: 0 auto;
 }
 
 /* Burger Menu Styles */
