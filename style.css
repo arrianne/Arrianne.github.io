@@ -1,9 +1,9 @@
 /* Base HTML Styles */
-@import url("https://fonts.googleapis.com/css2?family=Inter&family=Rubik:ital,wght@0,400;0,700;1,400&display=swap");
 
 :root {
-  --brand: #8246af;
-  --heading: #0000002b;
+  --grey: hsl(0, 0%, 40%);
+  --subheadings: "Nunito Sans", sans-serif;
+  --large-title: "Abril Fatface", serif;
 }
 
 /* CSS Reset */
@@ -24,40 +24,44 @@ ul {
 h1 {
   font-size: 100px;
   line-height: 60px;
-  font-family: "Nunito Sans", sans-serif;
-  font-weight: 600;
+
   font-style: normal;
-  color: var(--heading);
+  color: var(--grey);
 }
 
 h2 {
-  font-family: "Nunito Sans", sans-serif;
-  font-weight: 100;
+  font-family: var(--subheadings);
+  font-weight: 300;
   font-size: 18px;
   line-height: 30px;
   text-transform: uppercase;
 }
 
+h3 {
+  margin-left: 50px;
+  font-family: var(--subheadings);
+}
 p {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: var(--subheadings);
   margin: 50px;
 }
 
 li {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: var(--subheadings);
   margin: 50px;
 }
 
 section {
   display: flex;
-  justify-content: center;
   align-items: center;
   background-color: white;
   min-height: 100vh;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
 }
 
 .big-digits {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: var(--large-title);
   font-size: 100px;
   line-height: 100px;
   font-weight: 300;
@@ -68,10 +72,7 @@ section {
   width: 60px;
   height: 2px;
   margin-bottom: 8px;
-
   background-color: #77787a;
-
-  color: #77787a;
 }
 
 .hero-section {
@@ -85,7 +86,7 @@ section {
 .down-arrow {
   font-size: 40px;
   margin-top: 40px;
-  animation: updown 2s infinite alternate; /* Apply the 'pulse' animation */
+  animation: updown 2s infinite alternate; /* Apply the 'updown' animation */
 }
 
 @keyframes updown {
@@ -105,15 +106,23 @@ section {
   justify-content: center;
 }
 
-.image_and_paragraph {
+.portfolio-section {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.headshot_and_paragraph {
   display: flex;
   flex-direction: column;
 }
 
 .section-title {
   display: flex;
-  flex-direction: row;
-  width: 80%;
+  margin-bottom: 50px;
+  align-self: flex-start;
+  margin-left: 50px;
 }
 
 .line_and_text {
@@ -123,9 +132,45 @@ section {
   margin-bottom: 8px;
 }
 
-img {
-  width: 80%;
+.headshot_and_paragraph img {
+  max-width: 80%;
   margin: 0 auto;
+}
+
+/* Portfolio Section */
+
+.portfolio {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 800px;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.portfolio-item {
+  display: flex;
+  flex-direction: column;
+
+  color: #333;
+}
+
+.portfolio-item img {
+  width: 80%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  align-self: center;
+}
+
+.portfolio-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Responsive layout */
+@media (min-width: 768px) {
 }
 
 /* Burger Menu Styles */
@@ -209,13 +254,19 @@ img {
 }
 
 /* Styles for screens 768px and wider (e.g., tablets and desktop) */
+
 @media screen and (min-width: 768px) {
   section {
     max-width: 60%;
     margin: 0 auto;
     padding: 20px;
+    margin-bottom: 100px;
   }
-  .image_and_paragraph {
+  .section-title {
+    margin-left: 0;
+  }
+
+  .headshot_and_paragraph {
     display: flex;
     flex-direction: row-reverse;
   }
@@ -225,5 +276,33 @@ img {
   img {
     width: 60%;
     margin-bottom: 0;
+  }
+  h3 {
+    margin-left: 0;
+  }
+  p {
+    margin: 0;
+  }
+
+  /* Portfolio Section */
+  .portfolio {
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 100%;
+  }
+
+  .portfolio-item {
+    flex: 0 0 calc(50% - 40px);
+  }
+  .portfolio-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .portfolio-item img {
+    width: 100%;
   }
 }
