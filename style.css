@@ -22,8 +22,8 @@ ul {
 }
 
 h1 {
-  font-size: 100px;
-  line-height: 60px;
+  font-size: 8rem;
+  line-height: 5rem;
 
   font-style: normal;
   color: var(--grey);
@@ -259,20 +259,20 @@ section {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 40px;
   min-width: 80%;
-  margin: 50px;
+  margin: 100px 50px;
 }
 
 .contact-form h1 {
   margin-bottom: 100px;
   font-weight: 500;
   color: #333;
+  line-height: 6rem;
 }
 
 .form-group {
-  margin-bottom: 25px;
   position: relative;
+  margin-bottom: 30px;
 }
 
 .form-group input,
@@ -281,21 +281,49 @@ section {
   border: none;
   border-bottom: 2px solid #ccc;
   padding: 10px 5px;
-  font-size: 16px;
+  font-family: var(--subheadings);
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 30px;
+  text-transform: uppercase;
   background: transparent;
-  color: #333;
-  outline: none;
+  color: #000;
   transition: border-color 0.3s ease;
+  position: relative;
+  z-index: 1;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-bottom-color: #007bff;
+  outline: none; /* remove default blue outline */
+  border-bottom-color: transparent; /* hide default border for animation */
 }
 
 .form-group textarea {
   resize: vertical;
   min-height: 100px;
+}
+
+/* Animated underline */
+.form-group::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #007bff;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+
+/* Grow underline on focus */
+.form-group input:focus ~ ::after,
+.form-group textarea:focus ~ ::after,
+.form-group:focus-within::after {
+  transform: scaleX(1);
 }
 
 button {
