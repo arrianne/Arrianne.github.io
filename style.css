@@ -234,6 +234,7 @@ section {
   text-align: center;
   display: flex;
   flex-direction: column;
+  font-family: var(--subheadings);
 }
 
 .nav-menu li {
