@@ -13,24 +13,26 @@ document.addEventListener("DOMContentLoaded", () => {
   // Close the menu when a link is clicked and scroll to the section
   navLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
-      // Prevent default anchor link behavior
-      event.preventDefault();
+      const href = link.getAttribute("href");
 
-      // Get the target section from the href attribute
-      const targetId = link.getAttribute("href").substring(1);
-      const targetSection = document.getElementById(targetId);
+      // Only intercept internal section links (those that start with '#')
+      if (href.startsWith("#")) {
+        event.preventDefault();
 
-      // Smooth scroll to the section
-      if (targetSection) {
-        targetSection.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+        const targetId = href.substring(1);
+        const targetSection = document.getElementById(targetId);
+
+        if (targetSection) {
+          targetSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+
+        burgerMenu.classList.remove("open");
+        navMenu.classList.remove("open");
       }
-
-      // Close the menu after clicking a link
-      burgerMenu.classList.remove("open");
-      navMenu.classList.remove("open");
+      // Else: allow normal behavior for external or separate-page links
     });
   });
 });
