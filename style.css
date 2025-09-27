@@ -81,7 +81,8 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 100px;
+  align-items: center;
+  margin: 100px 0;
 }
 
 .portfolio-section {
@@ -89,7 +90,6 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 100px 0;
 }
 
 .contact-section {
@@ -172,10 +172,28 @@ section {
   margin-top: 50px;
 }
 
+.portfolio-item.from-left {
+  transform: translateX(-50px);
+}
+
+.portfolio-item.from-right {
+  transform: translateX(50px);
+}
+
+.portfolio-item.fade-in-left,
+.portfolio-item.fade-in-right {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 .portfolio-item {
   display: flex;
   flex-direction: column;
   color: #333;
+  opacity: 0;
+  transition: all 0.8s ease-out;
+  will-change: opacity, transform;
+  transform: none;
 }
 
 .portfolio-item h3 {
@@ -245,38 +263,42 @@ section {
 .nav-menu {
   position: fixed;
   top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background-color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: left 0.3s ease;
-  z-index: 2;
+
+  height: 100vh;
+  width: 200px;
+  background-color: #222;
+
+  transition: transform 0.3s ease-in-out;
+  padding-top: 60px;
+  z-index: 999;
+
+  right: auto;
+  left: 0; /* fix to left */
+  transform: translateX(-100%); /* hidden fully to the left */
 }
 
 .nav-menu.open {
-  left: 0;
+  transform: translateX(0);
+  width: 100%;
 }
 
 .nav-menu ul {
   list-style: none;
-  text-align: center;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  font-family: var(--subheadings);
+  justify-content: flex-start; /* override the global justify-content:center */
+  align-items: flex-start; /* align items to the start */
 }
-
-.nav-menu li {
+.nav-menu ul li {
   margin: 20px 0;
 }
 
-.nav-menu a {
-  color: grey;
+.nav-menu ul li a {
+  color: white;
   text-decoration: none;
-  font-size: 18px;
-  transition: color 0.3s ease;
+  font-size: 1.2rem;
 }
 
 .nav-menu a:hover {
@@ -520,6 +542,10 @@ li:hover span {
 
   .portfolio-item {
     flex: 0 0 calc(50% - 40px);
+  }
+  .portfolio-item.fade-in {
+    opacity: 1;
+    transform: none;
   }
 
   .portfolio-links {
