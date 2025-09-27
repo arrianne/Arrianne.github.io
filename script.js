@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const burgerMenu = document.getElementById("burger-menu");
   const navMenu = document.getElementById("nav-menu");
   const navLinks = document.querySelectorAll(".nav-menu a");
+  const heading = document.getElementById("hero-title");
+
+  heading.classList.add("fade-in");
 
   // Toggle the 'open' class when the burger menu is clicked
   burgerMenu.addEventListener("click", () => {

@@ -1,12 +1,12 @@
-/* Base HTML Styles */
-
+/* -----------------------------
+   Base HTML Styles & CSS Reset
+------------------------------ */
 :root {
-  --grey: hsl(0, 0%, 40%);
+  --black: #000;
   --subheadings: "Nunito Sans", sans-serif;
   --large-title: "Abril Fatface", serif;
 }
 
-/* CSS Reset */
 body,
 h1,
 h2,
@@ -21,10 +21,12 @@ ul {
   padding: 0;
 }
 
+/* -----------------------------
+   Typography
+------------------------------ */
 h1 {
   font-size: 8rem;
   line-height: 5rem;
-
   font-style: normal;
   color: var(--grey);
 }
@@ -41,33 +43,20 @@ h3 {
   margin-left: 50px;
   font-family: var(--subheadings);
 }
+
 p {
   font-family: var(--subheadings);
   margin: 50px;
 }
 
+/* -----------------------------
+   Layout: Sections
+------------------------------ */
 section {
   display: flex;
   align-items: center;
   background-color: white;
   min-height: 100vh;
-
-  margin-bottom: 50px;
-}
-
-.big-digits {
-  font-family: var(--large-title);
-  font-size: 100px;
-  line-height: 100px;
-  font-weight: 300;
-  margin-right: 40px;
-}
-
-.line_horizontal {
-  width: 60px;
-  height: 2px;
-  margin-bottom: 8px;
-  background-color: #77787a;
 }
 
 .hero-section {
@@ -78,20 +67,13 @@ section {
   justify-content: center;
 }
 
-.down-arrow {
-  font-size: 40px;
-  margin-top: 40px;
-  animation: updown 2s infinite alternate; /* Apply the 'updown' animation */
+#hero-title {
+  opacity: 0;
+  transition: opacity 1.5s ease-in;
 }
 
-@keyframes updown {
-  0%,
-  100% {
-    transform: translateY(0); /* Starting and ending position */
-  }
-  50% {
-    transform: translateY(-10px); /* Highest point of the bounce */
-  }
+#hero-title.fade-in {
+  opacity: 1;
 }
 
 .biography-section {
@@ -99,6 +81,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 100px;
 }
 
 .portfolio-section {
@@ -106,11 +89,27 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin: 100px 0;
 }
 
+.contact-section {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+}
+
+/* -----------------------------
+   Section Elements
+------------------------------ */
 .headshot_and_paragraph {
   display: flex;
   flex-direction: column;
+}
+
+.headshot_and_paragraph img {
+  max-width: 80%;
+  margin: 0 auto;
 }
 
 .section-title {
@@ -127,13 +126,43 @@ section {
   margin-bottom: 8px;
 }
 
-.headshot_and_paragraph img {
-  max-width: 80%;
-  margin: 0 auto;
+.line_horizontal {
+  width: 60px;
+  height: 2px;
+  margin-bottom: 8px;
+  background-color: #77787a;
 }
 
-/* Portfolio Section */
+.big-digits {
+  font-family: var(--large-title);
+  font-size: 6rem;
+  line-height: 100px;
+  font-weight: 300;
+  margin-right: 40px;
+}
 
+/* -----------------------------
+   Down Arrow Animation
+------------------------------ */
+.down-arrow {
+  font-size: 40px;
+  margin-top: 40px;
+  animation: updown 2s infinite alternate;
+}
+
+@keyframes updown {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* -----------------------------
+   Portfolio Section
+------------------------------ */
 .portfolio {
   display: flex;
   flex-direction: column;
@@ -146,8 +175,12 @@ section {
 .portfolio-item {
   display: flex;
   flex-direction: column;
-
   color: #333;
+}
+
+.portfolio-item h3 {
+  padding-top: 20px;
+  text-decoration: none;
 }
 
 .portfolio-item img {
@@ -164,11 +197,9 @@ section {
   font-weight: 600;
 }
 
-/* Responsive layout */
-@media (min-width: 768px) {
-}
-
-/* Burger Menu Styles */
+/* -----------------------------
+   Burger Menu Styles
+------------------------------ */
 .burger-menu {
   position: absolute;
   top: 20px;
@@ -188,13 +219,12 @@ section {
   transition: all 0.3s ease;
 }
 
-/* When the burger menu is open (cross state) */
-.burger-menu.open .line {
-  background-color: white; /* Change color to white when open */
-}
-
 .burger-menu .line-2 {
   width: 20px;
+}
+
+.burger-menu.open .line {
+  background-color: white;
 }
 
 .burger-menu.open .line-1 {
@@ -209,8 +239,9 @@ section {
   transform: translateY(-9px) rotate(-45deg);
 }
 
-/* Navigation Menu */
-
+/* -----------------------------
+   Navigation Menu
+------------------------------ */
 .nav-menu {
   position: fixed;
   top: 0;
@@ -242,30 +273,23 @@ section {
 }
 
 .nav-menu a {
-  color: white;
+  color: grey;
   text-decoration: none;
   font-size: 18px;
   transition: color 0.3s ease;
 }
 
 .nav-menu a:hover {
-  color: #f39c12;
+  color: white;
 }
 
-/* Contact page */
-
-.contact-section {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
+/* -----------------------------
+   Contact Form
+------------------------------ */
 .contact-form {
   display: flex;
-  justify-content: center;
+  align-items: start;
   flex-direction: column;
-  min-width: 50%;
-  margin: 100px 50px;
 }
 
 .contact-form h1 {
@@ -275,9 +299,21 @@ section {
   line-height: 6rem;
 }
 
+.form-and-socials {
+  display: flex;
+  gap: 50px;
+  width: 80%;
+  flex-direction: column;
+}
+
+.form-and-socials p {
+  margin: 0;
+}
+
 .form-group {
   position: relative;
   margin-bottom: 30px;
+  width: 100%;
 }
 
 .form-group input,
@@ -300,8 +336,8 @@ section {
 
 .form-group input:focus,
 .form-group textarea:focus {
-  outline: none; /* remove default blue outline */
-  border-bottom-color: transparent; /* hide default border for animation */
+  outline: none;
+  border-bottom-color: transparent;
 }
 
 .form-group textarea {
@@ -309,7 +345,6 @@ section {
   min-height: 100px;
 }
 
-/* Animated underline */
 .form-group::after {
   content: "";
   position: absolute;
@@ -321,20 +356,34 @@ section {
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
   z-index: 2;
 }
 
-/* Grow underline on focus */
 .form-group input:focus ~ ::after,
 .form-group textarea:focus ~ ::after,
 .form-group:focus-within::after {
   transform: scaleX(1);
 }
 
+/* -----------------------------
+   Button
+------------------------------ */
+button {
+  padding: 20px 50px;
+  background-color: black;
+  color: white;
+  font-family: var(--subheadings);
+}
+
+button:hover {
+  background-color: white;
+  color: black;
+}
+
+/* -----------------------------
+   Stylized List Items
+------------------------------ */
 ul {
-  padding: 0;
-  list-style-type: none;
   display: flex;
   justify-content: center;
 }
@@ -393,23 +442,26 @@ li:hover span {
   transform: translateX(0.15em);
 }
 
-/* Minimalist social icon styling */
+/* -----------------------------
+   Social Media Links
+------------------------------ */
 .social-media {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+  flex: 0 0 50%;
 }
 
 .social-links {
   display: flex;
   gap: 1rem;
   align-self: start;
-  margin-top: 2rem;
+  margin: 20px 0;
 }
 
 .social-links a {
-  color: #333; /* Neutral gray */
+  color: #333;
   font-size: 2rem;
   transition: color 0.3s ease;
   text-decoration: none;
@@ -419,43 +471,45 @@ li:hover span {
   color: #a6a6a6;
 }
 
-/* Optional: customize GitHub hover separately */
-.social-links a[aria-label="GitHub"]:hover {
-  color: #171515;
-}
-
-/* Styles for screens 768px and wider (e.g., tablets and desktop) */
+/* -----------------------------
+   Responsive Layout
+------------------------------ */
 
 @media screen and (min-width: 768px) {
   section {
-    max-width: 80%;
+    max-width: 60%;
     margin: 0 auto;
     padding: 20px;
     margin-bottom: 100px;
   }
+
   .section-title {
     margin-left: 0;
+    width: 100%;
   }
 
   .headshot_and_paragraph {
     display: flex;
     flex-direction: row-reverse;
   }
+
   .biography-title {
     width: 100%;
   }
+
   img {
     width: 60%;
     margin-bottom: 0;
   }
+
   h3 {
     margin-left: 0;
   }
+
   p {
     margin: 0;
   }
 
-  /* Portfolio Section */
   .portfolio {
     flex-direction: row-reverse;
     flex-wrap: wrap;
@@ -467,6 +521,7 @@ li:hover span {
   .portfolio-item {
     flex: 0 0 calc(50% - 40px);
   }
+
   .portfolio-links {
     flex-direction: row;
     flex-wrap: wrap;
@@ -477,16 +532,24 @@ li:hover span {
     width: 100%;
   }
 
-  /* Contact Page */
   .contact-section {
     flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .contact-section h1 {
+    line-height: 6rem;
+    flex: 0 0 100%;
   }
 
   .contact-form {
     margin: 0;
+    flex: 0 0 50%;
+    padding-right: 20px;
   }
 
-  .social-media {
-    margin: 100px;
+  .form-and-socials {
+    flex-direction: row;
+    width: 100%;
   }
 }
