@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Get references safely
+  const header = document.getElementById("header");
   const burgerMenu = document.getElementById("burger-menu");
   const navMenu = document.getElementById("nav-menu");
   const navLinks = document.querySelectorAll(".nav-menu a");
@@ -54,27 +55,41 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 10) {
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  });
+
   // Nav links smooth scroll & close menu on click for internal links
   navLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
       const href = link.getAttribute("href");
 
       if (href.startsWith("#")) {
-        event.preventDefault();
-
         const targetId = href.substring(1);
         const targetSection = document.getElementById(targetId);
 
         if (targetSection) {
-          targetSection.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }
+          event.preventDefault();
 
-        if (burgerMenu && navMenu) {
-          burgerMenu.classList.remove("open");
-          navMenu.classList.remove("open");
+          // Calculate offset position taking header height into account
+          const headerHeight = header.offsetHeight || 80; // fallback if needed
+          const elementPosition =
+            targetSection.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+
+          if (burgerMenu && navMenu) {
+            burgerMenu.classList.remove("open");
+            navMenu.classList.remove("open");
+          }
         }
       }
     });
