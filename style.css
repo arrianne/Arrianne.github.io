@@ -3,6 +3,8 @@
 ------------------------------ */
 :root {
   --black: #000;
+  --white: #fff;
+  --grey: #ccc;
   --subheadings: "Nunito Sans", sans-serif;
   --large-title: "Abril Fatface", serif;
 }
@@ -28,7 +30,7 @@ h1 {
   font-size: 8rem;
   line-height: 5rem;
   font-style: normal;
-  color: var(--grey);
+  color: var(--black);
 }
 
 h2 {
@@ -62,7 +64,7 @@ section {
 
 #about,
 #portfolio {
-  scroll-margin-top: 80px; /* Adjust to match your sticky header height */
+  scroll-margin-top: 80px;
 }
 
 .hero-section {
@@ -71,9 +73,10 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   margin-top: -50px;
 }
+
+/* ---------------------- Hero styling */
 
 #hero-title {
   opacity: 0;
@@ -84,8 +87,10 @@ section {
   opacity: 1;
 }
 
+/* ------------------------------------ */
+
 .biography-section {
-  background-color: white;
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -93,7 +98,7 @@ section {
 }
 
 .portfolio-section {
-  background-color: white;
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -101,7 +106,7 @@ section {
 }
 
 .contact-section {
-  background-color: white;
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
   margin-top: 100px;
@@ -202,7 +207,7 @@ section {
 .portfolio-item {
   display: flex;
   flex-direction: column;
-  color: #333;
+  color: var(--black);
   opacity: 0;
   transition: all 0.8s ease-out;
   will-change: opacity, transform;
@@ -231,6 +236,7 @@ section {
 /* -----------------------------
    Burger Menu Styles
 ------------------------------ */
+
 /* Sticky header with background transition */
 header {
   position: sticky;
@@ -243,12 +249,12 @@ header {
 
 /* When scrolling */
 header.scrolled {
-  background-color: black;
+  background-color: var(--black);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .burger-menu {
-  top: 20px; /* place 20px from the top */
+  top: 20px;
   left: 20px;
   margin: 0;
   cursor: pointer;
@@ -267,7 +273,7 @@ header.scrolled {
 
 .burger-menu .line {
   height: 4px;
-  background-color: #333;
+  background-color: var(--black);
   transition: all 0.3s ease;
 }
 
@@ -276,7 +282,7 @@ header.scrolled {
 }
 
 .burger-menu.open .line {
-  background-color: white;
+  background-color: var(--white);
 }
 
 .burger-menu.open .line-1 {
@@ -293,7 +299,7 @@ header.scrolled {
 
 /* Change burger lines to white when scrolled */
 header.scrolled .burger-menu .line {
-  background-color: white;
+  background-color: var(--white);
 }
 
 /* -----------------------------
@@ -305,12 +311,10 @@ header.scrolled .burger-menu .line {
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: #222;
+  background-color: var(--black);
   transform: translateX(-100%);
   transition: transform 0.5s ease-in-out;
   z-index: 1000;
-
-  /* Center content */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -330,7 +334,7 @@ header.scrolled .burger-menu .line {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; /* CENTER links horizontally */
+  align-items: center;
 }
 
 .nav-menu ul li {
@@ -339,13 +343,13 @@ header.scrolled .burger-menu .line {
 }
 
 .nav-menu ul li a {
-  color: white;
+  color: var(--white);
   text-decoration: none;
   font-size: 1.2rem;
 }
 
 .nav-menu a:hover {
-  color: white;
+  color: var(--white);
 }
 
 /* -----------------------------
@@ -360,7 +364,7 @@ header.scrolled .burger-menu .line {
 .contact-form h1 {
   margin-bottom: 100px;
   font-weight: 500;
-  color: #333;
+  color: var(--black);
   line-height: 6rem;
 }
 
@@ -385,7 +389,7 @@ header.scrolled .burger-menu .line {
 .form-group textarea {
   width: 100%;
   border: none;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid var(--grey);
   padding: 10px 5px;
   font-family: var(--subheadings);
   font-weight: 300;
@@ -393,7 +397,7 @@ header.scrolled .burger-menu .line {
   line-height: 30px;
   text-transform: uppercase;
   background: transparent;
-  color: #000;
+  color: var(--black);
   transition: border-color 0.3s ease;
   position: relative;
   z-index: 1;
@@ -417,7 +421,7 @@ header.scrolled .burger-menu .line {
   bottom: 0;
   height: 2px;
   width: 100%;
-  background-color: rgba(0, 123, 255, 0.7);
+  background-color: rgba(0, 255, 195, 0.7);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -435,14 +439,14 @@ header.scrolled .burger-menu .line {
 ------------------------------ */
 button {
   padding: 20px 50px;
-  background-color: black;
-  color: white;
+  background-color: var(--black);
+  color: var(--white);
   font-family: var(--subheadings);
 }
 
 button:hover {
-  background-color: white;
-  color: black;
+  background-color: var(--white);
+  color: var(--black);
 }
 
 /* -----------------------------
@@ -457,7 +461,7 @@ ul {
   font-size: 25px;
   width: 8em;
   height: 2em;
-  color: black;
+  color: var(--black);
   border-left: 0.08em solid;
   position: relative;
   margin-top: 0.8em;
