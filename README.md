@@ -1,36 +1,76 @@
-#  Arrianne O'Shea - Portfolio Task
+# Arrianne O'Shea - Portfolio Task
+
 ​
 [My portfolio site] https://arrianne.github.io
 ​
+
 ## Project Requirements
 
 ### Content
- Add a short paragraph describing the features below. What aesthetic and technical choices did you make? 
-- [ ] At least one profile picture
-- [ ] Biography (at least 100 words)
-- [ ] Functional Contact Form
-- [ ] "Projects" section
-- [ ] Links to external sites, e.g. GitHub and LinkedIn.
-​
+
+- ✅ At least one profile picture
+- ✅ Biography (at least 100 words)
+- ✅ Functional Contact Form (well..this is not at all functional yet.)
+- ✅ "Projects" section
+- ✅ Links to external sites, e.g. GitHub and LinkedIn.
+
 ### Technical
- Add a short paragraph describing the features below. What strategies or design decisions did you work from? 
-- [ ] At least 2 web pages.
-- [ ] Version controlled with Git
-- [ ] Deployed on GitHub pages.
-- [ ] Implements responsive design principles.
-- [ ] Uses semantic HTML.
+
+- ✅ At least 2 web pages.
+- ✅ Version controlled with Git
+- ✅ Deployed on GitHub pages.
+- ✅ Implements responsive design principles.
+- ✅ Uses semantic HTML.
 
 ### Bonus (optional)
- Add a short paragraph describing the features below, if you included any. 
-- [ ] Different styles for active, hover and focus states.
-- [ ] Include JavaScript to add some dynamic elements to your site. (Extra tricky!)
-​
-### Screenshots
-> Please include the following:
-> - The different pages and features of your website on mobile, tablet and desktop screen sizes (multiple screenshots per page and screen size).
-> - The different features of your site, e.g. if you have hover states, take a screenshot that shows that.  
-> 
-> You can do this by saving the images in a folder in your repo, and including them in your readme document with the following Markdown code: 
 
-####  image_title_goes_here 
-![Put a description of your image here](./relative_path_to_file)
+Add a short paragraph describing the features below, if you included any.
+
+- x Different styles for active, hover and focus states. - Did not actually finish this for all links.
+- ✅ Include JavaScript to add some dynamic elements to your site.
+
+#### wireframes
+
+![I started with very basic wireframs using Balsamiq](images/wireframes.png)
+
+#### hero - mobile
+
+![hero mobile](images/mobile-hero.png)
+
+#### Hero - desktop
+
+![hero desktop](images/desktop-hero.png)
+<img src="images/desktop-hero.png" alt="hero desktop" width="300" />
+
+#### About me - mobile
+
+![about me mobile](images/mobile-about.png)
+
+#### About me - Desktop
+
+![about me desktop](images/desktop-about.png)
+
+#### portfolio - mobile
+
+![about me mobile](images/portfolio-mobile.png)
+
+#### portfolio - Desktop
+
+![about me desktop](images/desktop-portfolio.png)
+
+#### Contact - mobile
+
+![about me mobile](images/mobile-contact.png)
+
+#### Contact - Desktop
+
+![about me desktop](images/desktop-contact.png)
+
+#### Still to do....
+
+I really want to make it more accessible so will be updating alt tags in html etc.
+I want to expand the homepage to include a skills section and add a bit more fun stuff in the about section.
+I want to add a 'fun mode' toggle button at the top which will add more colour an pazazz to my overall site.
+I want to add hover states to nav links.
+
+My list could probably go on and on and on..

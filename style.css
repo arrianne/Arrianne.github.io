@@ -71,7 +71,8 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0;
+
+  margin-top: -50px;
 }
 
 #hero-title {
@@ -549,12 +550,10 @@ li:hover span {
 
   .hero-section {
     min-width: 100%;
-    margin-top: -50px;
   }
   .section-title {
     margin-left: 0;
     width: 100%;
-    margin-bottom: 100px;
   }
 
   .headshot_and_paragraph {
