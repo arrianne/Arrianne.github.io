@@ -3,7 +3,9 @@
 ------------------------------ */
 :root {
   --black: #000;
-  --subheadings: "Nunito Sans", sans-serif;
+  --small-subheadings: "Nunito Sans", sans-serif;
+  --large-subheadings: "figtree", serif;
+  --grey: #77787a;
   --large-title: "Abril Fatface", serif;
 }
 
@@ -34,7 +36,7 @@ h1 {
 }
 
 h2 {
-  font-family: var(--subheadings);
+  font-family: var(--small-subheadings);
   font-weight: 300;
   font-size: 18px;
   line-height: 30px;
@@ -48,18 +50,27 @@ h3 {
 
 p {
   font-family: var(--subheadings);
-  margin: 50px;
+}
+
+.subheading {
+  font-family: var(--large-subheadings);
+  font-size: 2rem;
+  line-height: 2rem;
+  width: 
+  font-weight: 500;
+  margin-bottom: 50px;
+  text-transform: uppercase;
 }
 
 /* -----------------------------
    Layout: Sections
 ------------------------------ */
 section {
+  padding: 0 50px;
   display: flex;
   align-items: center;
   background-color: white;
   min-height: 100vh;
-  margin: 100px 0;
 }
 
 #about,
@@ -136,26 +147,15 @@ section {
 /* -----------------------------
    Section Elements
 ------------------------------ */
-.headshot_and_paragraph {
+.biography-paragraph {
   display: flex;
   flex-direction: column;
-}
-
-.headshot_and_paragraph img {
-  width: 300px; /* or whatever fits your layout */
-  height: auto;
-  aspect-ratio: 3 / 4; /* Adjust this based on your image shape */
-  object-fit: cover; /* 'contain' if you want no cropping */
-  border-radius: 8px; /* Optional for aesthetics */
-  display: block;
-  margin: 2rem auto;
 }
 
 .section-title {
   display: flex;
   margin-bottom: 50px;
   align-self: flex-start;
-  margin-left: 50px;
 }
 
 .line_and_text {
@@ -570,7 +570,7 @@ li:hover span {
 
 @media screen and (min-width: 768px) {
   section {
-    max-width: 60%;
+    max-width: 80%;
     margin: 0 auto;
     padding: 20px;
     margin-bottom: 100px;
@@ -586,16 +586,6 @@ li:hover span {
   .section-title {
     margin-left: 0;
     width: 100%;
-  }
-
-  .headshot_and_paragraph {
-    display: flex;
-    flex-direction: row-reverse;
-  }
-
-  .headshot_and_paragraph p {
-    padding-left: 50px;
-    box-sizing: border-box;
   }
 
   .biography-title {
@@ -616,8 +606,22 @@ li:hover span {
 
   p {
     margin: 0;
+    max-width: 350px;
   }
 
+  .paragraph1 {
+    align-self: center;
+  }
+  .paragraph2 {
+    align-self: flex-end;
+  }
+
+  .subheading {
+    margin-bottom: 100px;
+    width: 50%;
+    font-size: 4rem;
+    line-height: 4rem;
+  }
   .portfolio {
     flex-direction: row-reverse;
     flex-wrap: wrap;
