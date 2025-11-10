@@ -25,9 +25,11 @@ ul {
    Typography
 ------------------------------ */
 h1 {
-  font-size: 8rem;
+  font-size: 6rem;
+  font-weight: 200;
   line-height: 5rem;
   font-style: normal;
+  text-transform: uppercase;
   color: var(--grey);
 }
 
@@ -66,18 +68,42 @@ section {
 }
 
 .hero-section {
-  background-color: white;
-  display: flex;
+  background-color: rgb(24, 24, 24);
+  height: 100vh;
+  position: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: -100px;
+}
 
-  margin-top: -50px;
+.hero-image {
+  width: 350px;
+  height: auto;
+  aspect-ratio: 3 / 4; /* Adjust this based on your image shape */
+  object-fit: cover; /* 'contain' if you want no cropping */
+  position: absolute;
+  bottom: 300px;
+}
+#hero-scroll {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  pointer-events: none; /* Let user interact with page normally */
 }
 
 #hero-title {
-  opacity: 0;
-  transition: opacity 1.5s ease-in;
+  position: absolute;
+  left: 50%;
+  top: 75%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  color: white;
+  z-index: 5;
+  text-align: center;
 }
 
 #hero-title.fade-in {
@@ -158,8 +184,10 @@ section {
    Down Arrow Animation
 ------------------------------ */
 .down-arrow {
+  color: white;
   font-size: 40px;
-  margin-top: 40px;
+  position: absolute;
+  bottom: 80px;
   animation: updown 2s infinite alternate;
 }
 
@@ -267,7 +295,7 @@ header.scrolled {
 
 .burger-menu .line {
   height: 4px;
-  background-color: #333;
+  background-color: #ffffff;
   transition: all 0.3s ease;
 }
 
@@ -547,6 +575,10 @@ li:hover span {
     padding: 20px;
     margin-bottom: 100px;
   }
+  #hero-title {
+    max-width: 50%;
+    top: 70%;
+  }
 
   .hero-section {
     min-width: 100%;
@@ -574,7 +606,10 @@ li:hover span {
     width: 60%;
     margin-bottom: 0;
   }
-
+  h1 {
+    font-size: 8rem;
+    line-height: 6rem;
+  }
   h3 {
     margin-left: 0;
   }
