@@ -10,6 +10,12 @@
       href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Anton&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Lexend:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
 
     <title>Arrianne</title>
   </head>
@@ -32,10 +38,13 @@
       </nav>
     </header>
     <section class="hero-section">
-      <h1 id="hero-title">
-        Arri<br />
-        anne
-      </h1>
+      <div id="hero-scroll"></div>
+      <img
+        class="hero-image"
+        src="images/headshot.jpg"
+        alt="black and white headshot of Arrianne"
+      />
+      <h1 id="hero-title">Hello there.</h1>
       <span class="down-arrow">&#8595;</span>
     </section>
     <section class="biography-section" id="about">
@@ -46,14 +55,18 @@
           <h2>About Me</h2>
         </div>
       </div>
-      <div class="headshot_and_paragraph">
-        <p>
+      <div class="biography-paragraph">
+        <div class="subheading">
+          I'm Arrianne. <br />Your friendly neighbourhood developer.
+        </div>
+        <p class="paragraph1">
           Hi, I’m a junior developer with a background in ophthalmic research. I
           made the leap into tech after working on a project with DeepMind,
           where I had the chance to collaborate with some incredible developers.
           That experience introduced me to the creative and problem-solving side
-          of software development.<br />
-          <br />
+          of software development.
+        </p>
+        <p class="paragraph2">
           I’m passionate about clean design, intuitive user experiences, and
           writing code that’s both functional and elegant. I love learning,
           whether it’s picking up a new framework or finding better ways to
@@ -62,9 +75,44 @@
           growing as a developer and to be part of building things that make a
           difference.
         </p>
-        <img src="images/headshot.jpg" alt="" />
+        <div></div>
       </div>
     </section>
+
+    <section class="services-section" id="services">
+      <div class="subheading">Things that make me happy...</div>
+      <div class="line-break"></div>
+      <div class="icon-container">
+        <div class="icon">
+          <div class="icon-circle">
+            <div class="intuitive-circle"></div>
+          </div>
+          <h2>Intuitive Design</h2>
+          <p>I have a strong preference for easy to use, intuitive UX/UI</p>
+        </div>
+
+        <div class="icon">
+          <div class="icon-circle">
+            <div class="dynamic-line one"></div>
+            <div class="dynamic-line two"></div>
+            <div class="dynamic-line three"></div>
+          </div>
+          <h2>Movement</h2>
+          <p>
+            Websites don't have to be static. I love making pages come to life.
+          </p>
+        </div>
+
+        <div class="icon">
+          <div class="icon-circle">
+            <div class="box"></div>
+          </div>
+          <h2>Responsive</h2>
+          <p>Layouts that work on any device, big or small.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="portfolio-section" id="portfolio">
       <div class="section-title">
         <div class="big-digits">02</div>
@@ -96,5 +144,7 @@
       </div>
     </section>
     <script src="script.js"></script>
+    <script src="hero.js"></script>
+    <script src="fade-in.js"></script>
   </body>
 </html>

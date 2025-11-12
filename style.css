@@ -3,13 +3,16 @@
 ------------------------------ */
 :root {
   --black: #000;
-  --white: #fff;
-  --grey: #ccc;
-  --subheadings: "Nunito Sans", sans-serif;
+  --small-subheadings: "Nunito Sans", sans-serif;
+  --large-subheadings: "figtree", serif;
+  --grey: #77787a;
   --large-title: "Abril Fatface", serif;
 }
 
-body,
+body {
+  width: 100%;
+  margin: 0px;
+}
 h1,
 h2,
 h3,
@@ -27,14 +30,16 @@ ul {
    Typography
 ------------------------------ */
 h1 {
-  font-size: 8rem;
+  font-size: 6rem;
+  font-weight: 200;
   line-height: 5rem;
   font-style: normal;
-  color: var(--black);
+  text-transform: uppercase;
+  color: var(--grey);
 }
 
 h2 {
-  font-family: var(--subheadings);
+  font-family: var(--small-subheadings);
   font-weight: 300;
   font-size: 18px;
   line-height: 30px;
@@ -47,20 +52,54 @@ h3 {
 }
 
 p {
-  font-family: var(--subheadings);
-  margin: 50px;
+  font-family: var(--small-subheadings);
+  font-weight: 200;
+}
+
+.subheading {
+  font-family: var(--large-subheadings);
+  font-size: 2rem;
+  line-height: 2rem;
+  width: 
+  font-weight: 500;
+  margin-bottom: 50px;
+  text-transform: uppercase;
 }
 
 /* -----------------------------
    Layout: Sections
 ------------------------------ */
 section {
+  padding: 100px 50px;
   display: flex;
-  align-items: center;
   background-color: white;
-  min-height: 100vh;
-  margin: 100px 0;
 }
+
+/* -----------------------------
+  Sections: Fade-in Animation
+------------------------------ */
+.biography-section > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 2.0s ease, transform 2.0s ease;
+}
+
+.biography-section.fade-in > *:nth-child(1) {
+  transition-delay: 0.4s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.biography-section.fade-in > *:nth-child(2) {
+  transition-delay: 0.7s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.biography-section.fade-in > *:nth-child(3) {
+  transition-delay: 1.0s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 #about,
 #portfolio {
@@ -68,19 +107,45 @@ section {
 }
 
 .hero-section {
-  background-color: white;
-  display: flex;
+  background-color: rgb(24, 24, 24);
+  height: 100vh;
+  position: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: -50px;
+  padding: 0 50px;
+  margin-top: -100px;
+}
+
+.hero-image {
+  width: 350px;
+  height: auto;
+  aspect-ratio: 3 / 4; /* Adjust this based on your image shape */
+  object-fit: cover; /* 'contain' if you want no cropping */
+  position: absolute;
+  bottom: 300px;
+}
+#hero-scroll {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  pointer-events: none; /* Let user interact with page normally */
 }
 
 /* ---------------------- Hero styling */
 
 #hero-title {
-  opacity: 0;
-  transition: opacity 1.5s ease-in;
+  position: absolute;
+  left: 50%;
+  top: 75%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  color: white;
+  z-index: 5;
+  text-align: center;
 }
 
 #hero-title.fade-in {
@@ -93,9 +158,139 @@ section {
   background-color: var(--white);
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+/* -----------------------------
+   Services Sections
+------------------------------ */
+.services-section {
+  background-color: rgb(228, 228, 228);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
+}
+.services {
+  flex-direction: column;
+  display: flex;
+  height: 100%;
+  min-height: 60em;
   justify-content: center;
   align-items: center;
 }
+
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.icon-container .icon {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.icon-container p {
+  text-align: center;
+  width: 70%;
+}
+.icon-container .icon-circle {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--nav-color);
+}
+
+.intuitive-circle {
+  width: 30%;
+  height: 30%;
+  position: absolute;
+  border-radius: 50%;
+  border: 5px solid white;
+  animation-name: intuitive;
+  animation-timing-function: ease-out;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+.box {
+  border: 5px solid white;
+  animation-name: resize;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  width: 98px;
+  height: 98px;
+}
+
+@keyframes resize {
+  0% {
+    width: 30px;
+    height: 60px;
+  }
+  50% {
+    width: 100px;
+    height: 70px;
+  }
+  100% {
+    width: 30px;
+    height: 60px;
+  }
+}
+.dynamic-line {
+  width: 80px;
+  height: 5px;
+  top: 50px;
+  border-radius: 25px;
+  margin: 10px;
+  background-color: white;
+  animation-name: dynamic;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+.dynamic-line .one {
+  animation-delay: 1s;
+}
+.dynamic-line .two {
+  animation-delay: 1.2;
+}
+.dynamic-line .three {
+  animation-delay: 1.4;
+}
+
+@keyframes intuitive {
+  0% {
+    width: 30%;
+    height: 30%;
+  }
+  50% {
+    width: 35%;
+    height: 35%;
+  }
+  100% {
+    width: 30%;
+    height: 30%;
+  }
+}
+@keyframes dynamic {
+  0% {
+    margin-left: -300px;
+  }
+  100% {
+    margin-left: 300px;
+  }
+}
+
+/* -----------------------------
+   Portfolio Section
+------------------------------ */
 
 .portfolio-section {
   background-color: var(--white);
@@ -115,26 +310,15 @@ section {
 /* -----------------------------
    Section Elements
 ------------------------------ */
-.headshot_and_paragraph {
+.biography-paragraph {
   display: flex;
   flex-direction: column;
-}
-
-.headshot_and_paragraph img {
-  width: 300px; /* or whatever fits your layout */
-  height: auto;
-  aspect-ratio: 3 / 4; /* Adjust this based on your image shape */
-  object-fit: cover; /* 'contain' if you want no cropping */
-  border-radius: 8px; /* Optional for aesthetics */
-  display: block;
-  margin: 2rem auto;
 }
 
 .section-title {
   display: flex;
   margin-bottom: 50px;
   align-self: flex-start;
-  margin-left: 50px;
 }
 
 .line_and_text {
@@ -163,8 +347,10 @@ section {
    Down Arrow Animation
 ------------------------------ */
 .down-arrow {
+  color: white;
   font-size: 40px;
-  margin-top: 40px;
+  position: absolute;
+  bottom: 80px;
   animation: updown 2s infinite alternate;
 }
 
@@ -273,7 +459,7 @@ header.scrolled {
 
 .burger-menu .line {
   height: 4px;
-  background-color: var(--black);
+  background-color: #ffffff;
   transition: all 0.3s ease;
 }
 
@@ -339,7 +525,8 @@ header.scrolled .burger-menu .line {
 
 .nav-menu ul li {
   margin: 20px 0;
-  font-family: var(--subheadings);
+  font-family: var(--small-subheadings);
+  font-weight: 200;;
 }
 
 .nav-menu ul li a {
@@ -546,10 +733,12 @@ li:hover span {
 
 @media screen and (min-width: 768px) {
   section {
-    max-width: 60%;
-    margin: 0 auto;
-    padding: 20px;
-    margin-bottom: 100px;
+
+    padding: 200px 100px;
+  }
+  #hero-title {
+    max-width: 50%;
+    top: 70%;
   }
 
   .hero-section {
@@ -560,16 +749,6 @@ li:hover span {
     width: 100%;
   }
 
-  .headshot_and_paragraph {
-    display: flex;
-    flex-direction: row-reverse;
-  }
-
-  .headshot_and_paragraph p {
-    padding-left: 50px;
-    box-sizing: border-box;
-  }
-
   .biography-title {
     width: 100%;
   }
@@ -578,13 +757,35 @@ li:hover span {
     width: 60%;
     margin-bottom: 0;
   }
-
+  h1 {
+    font-size: 8rem;
+    line-height: 6rem;
+  }
   h3 {
     margin-left: 0;
   }
 
   p {
     margin: 0;
+    max-width: 350px;
+  }
+
+  .paragraph1 {
+    align-self: center;
+  }
+  .paragraph2 {
+    align-self: flex-end;
+  }
+
+  .subheading {
+    margin-bottom: 100px;
+    width: 50%;
+    font-size: 4rem;
+    line-height: 4rem;
+  }
+
+.icon-container {
+    flex-direction: row;
   }
 
   .portfolio {
