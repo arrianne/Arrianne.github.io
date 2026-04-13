@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -39,11 +39,39 @@
     </header>
     <section class="hero-section">
       <div id="hero-scroll"></div>
-      <img
-        class="hero-image"
-        src="images/headshot.jpg"
-        alt="black and white headshot of Arrianne"
-      />
+      <div class="hero-image-wrap">
+        <img
+          class="hero-image"
+          src="images/headshot.jpg"
+          alt="black and white headshot of Arrianne"
+        />
+        <div class="hero-rotating-badge" aria-hidden="true">
+          <svg
+            class="hero-rotating-badge__svg"
+            viewBox="0 0 200 200"
+            width="200"
+            height="200"
+            overflow="visible"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <path
+                id="hero-badge-text-path"
+                fill="none"
+                d="M 100,18 A 82,82 0 1 1 100,182 A 82,82 0 1 1 100,18"
+              />
+            </defs>
+            <text class="hero-rotating-badge__text">
+              <textPath href="#hero-badge-text-path" startOffset="8%">
+                <tspan class="hero-rotating-badge__dot">&#9679;</tspan>
+                &#8197;Arrianne O'Shea&#8197;
+                <tspan class="hero-rotating-badge__dot">&#9679;</tspan>
+                &#8193;&#8193;&#8193;&#8193;&#8193;&#8193;Software Developer
+              </textPath>
+            </text>
+          </svg>
+        </div>
+      </div>
       <h1 id="hero-title">Hello there.</h1>
       <span class="down-arrow">&#8595;</span>
     </section>
@@ -125,45 +153,74 @@
         <div class="portfolio-item">
           <div class="portfolio-item-text">
             <h3 class="portfolio-item-title">Swing Patrol</h3>
-            <p class="portfolio-item-description">Wordpress web development. A full site build for the dance community, with events, classes and booking.</p>
+            <p class="portfolio-item-description">
+              Wordpress web development. A full site build for the dance
+              community, with events, classes and booking.
+            </p>
             <!-- Replace # with the live site URL (e.g. https://swingpatrol.com.au) -->
-            <a href="#" class="portfolio-btn" target="_blank" rel="noopener">View site</a>
+            <a href="#" class="portfolio-btn" target="_blank" rel="noopener"
+              >View site</a
+            >
           </div>
           <div class="portfolio-item-image">
-            <img src="images/SP-mockup.png" alt="Swing Patrol - Wordpress web development" />
+            <img
+              src="images/SP-mockup.png"
+              alt="Swing Patrol - Wordpress web development"
+            />
           </div>
         </div>
 
         <div class="portfolio-item">
           <div class="portfolio-item-text">
             <h3 class="portfolio-item-title">Project Two</h3>
-            <p class="portfolio-item-description">Description of the project and what you built.</p>
-            <a href="#" class="portfolio-btn" target="_blank" rel="noopener">View site</a>
+            <p class="portfolio-item-description">
+              Description of the project and what you built.
+            </p>
+            <a href="#" class="portfolio-btn" target="_blank" rel="noopener"
+              >View site</a
+            >
           </div>
           <div class="portfolio-item-image">
-            <img src="https://picsum.photos/600/400?grayscale" alt="Project 2" />
+            <img
+              src="https://picsum.photos/600/400?grayscale"
+              alt="Project 2"
+            />
           </div>
         </div>
 
         <div class="portfolio-item">
           <div class="portfolio-item-text">
             <h3 class="portfolio-item-title">Project Three</h3>
-            <p class="portfolio-item-description">Description of the project and what you built.</p>
-            <a href="#" class="portfolio-btn" target="_blank" rel="noopener">View site</a>
+            <p class="portfolio-item-description">
+              Description of the project and what you built.
+            </p>
+            <a href="#" class="portfolio-btn" target="_blank" rel="noopener"
+              >View site</a
+            >
           </div>
           <div class="portfolio-item-image">
-            <img src="https://picsum.photos/600/400?grayscale" alt="Project 3" />
+            <img
+              src="https://picsum.photos/600/400?grayscale"
+              alt="Project 3"
+            />
           </div>
         </div>
 
         <div class="portfolio-item">
           <div class="portfolio-item-text">
             <h3 class="portfolio-item-title">Project Four</h3>
-            <p class="portfolio-item-description">Description of the project and what you built.</p>
-            <a href="#" class="portfolio-btn" target="_blank" rel="noopener">View site</a>
+            <p class="portfolio-item-description">
+              Description of the project and what you built.
+            </p>
+            <a href="#" class="portfolio-btn" target="_blank" rel="noopener"
+              >View site</a
+            >
           </div>
           <div class="portfolio-item-image">
-            <img src="https://picsum.photos/600/400?grayscale" alt="Project 4" />
+            <img
+              src="https://picsum.photos/600/400?grayscale"
+              alt="Project 4"
+            />
           </div>
         </div>
       </div>
