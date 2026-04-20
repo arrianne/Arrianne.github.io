@@ -7,6 +7,7 @@
   --large-subheadings: "figtree", serif;
   --grey: #77787a;
   --large-title: "Abril Fatface", serif;
+  --content-max-width: 1400px;
 }
 
 body {
@@ -75,10 +76,18 @@ section {
   background-color: white;
 }
 
+.section-inner {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
 /* -----------------------------
   Sections: Fade-in Animation
 ------------------------------ */
-.biography-section > * {
+.biography-section .section-inner > * {
   opacity: 0;
   transform: translateY(30px);
   transition:
@@ -86,18 +95,23 @@ section {
     transform 2s ease;
 }
 
-.biography-section.fade-in > *:nth-child(1) {
+.biography-section.fade-in .section-inner > *:nth-child(1) {
   transition-delay: 0.4s;
   opacity: 1;
   transform: translateY(0);
 }
-.biography-section.fade-in > *:nth-child(2) {
-  transition-delay: 0.7s;
+.biography-section.fade-in .section-inner > *:nth-child(2) {
+  transition-delay: 0.55s;
   opacity: 1;
   transform: translateY(0);
 }
-.biography-section.fade-in > *:nth-child(3) {
-  transition-delay: 1s;
+.biography-section.fade-in .section-inner > *:nth-child(3) {
+  transition-delay: 0.75s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.biography-section.fade-in .section-inner > *:nth-child(4) {
+  transition-delay: 0.95s;
   opacity: 1;
   transform: translateY(0);
 }
@@ -281,19 +295,53 @@ section {
   background-color: var(--white);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: clip;
 }
 
 /* -----------------------------
    Services Sections
 ------------------------------ */
 .services-section {
-  background-color: rgb(228, 228, 228);
+  background-color: var(--black);
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   padding-top: 100px;
+}
+
+.services-section .section-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.services-section .subheading {
+  /* Match .biography-row--heading .subheading (Figtree / weight / case) */
+  font-family: var(--large-subheadings);
+  font-weight: 500;
+  text-transform: uppercase;
+  text-align: center;
+  color: #ffffff;
+}
+
+.services-section .icon-container .icon h2,
+.services-section .icon-container .icon p {
+  color: #ffffff;
+}
+
+.services-section .icon-container .icon h2 {
+  text-align: center;
+}
+
+.services-section .icon-container .icon-circle {
+  background-color: rgb(24, 24, 24);
 }
 .services {
   flex-direction: column;
@@ -419,7 +467,7 @@ section {
   background-color: var(--white);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   margin-bottom: 100px;
   overflow-x: clip;
@@ -429,21 +477,42 @@ section {
   background-color: var(--white);
   display: flex;
   flex-direction: column;
+  align-items: stretch;
   margin-top: 100px;
 }
 
 /* -----------------------------
    Section Elements
 ------------------------------ */
-.biography-paragraph {
-  display: flex;
-  flex-direction: column;
+.biography-row {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.biography-row + .biography-row {
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+}
+
+.biography-section .paragraph1,
+.biography-section .paragraph2 {
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .section-title {
   display: flex;
   margin-bottom: 50px;
   align-self: flex-start;
+}
+
+.biography-row--lead .section-title {
+  margin-bottom: 0;
+}
+
+.biography-row--heading .subheading {
+  margin-bottom: 0;
 }
 
 .line_and_text {
@@ -497,10 +566,8 @@ section {
   flex-direction: column;
   gap: 0;
   width: 100%;
-  max-width: 1400px;
+  max-width: var(--content-max-width);
   margin-top: 50px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .portfolio-item.from-left {
@@ -781,7 +848,7 @@ header.scrolled .burger-menu .line {
 .form-and-socials {
   display: flex;
   gap: 50px;
-  width: 80%;
+  width: 100%;
   flex-direction: column;
 }
 
@@ -959,7 +1026,7 @@ li:hover span {
     padding: 200px 100px;
   }
   #hero-title {
-    max-width: 50%;
+    max-width: min(50%, 22rem);
     top: 70%;
   }
 
@@ -989,21 +1056,91 @@ li:hover span {
 
   p {
     margin: 0;
-    max-width: 350px;
   }
 
-  .paragraph1 {
-    align-self: center;
-  }
-  .paragraph2 {
-    align-self: flex-end;
+  .contact-section .social-media p {
+    max-width: min(40rem, 100%);
   }
 
-  .subheading {
+  /* About: staircase (7 units wide) — No | Title | P1 | P2 each 2-wide except 1-wide lead */
+  .biography-section {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: clamp(3.5rem, 7vw, 5.5rem);
+    padding-bottom: clamp(3.5rem, 7vw, 5.5rem);
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
+  .biography-section .paragraph1,
+  .biography-section .paragraph2 {
+    line-height: 1.45;
+    font-size: 0.98rem;
+  }
+
+  .biography-section .biography-row + .biography-row {
+    margin-top: clamp(0.5rem, 1.2vw, 0.85rem);
+  }
+
+  /* margin-left + width:auto + max-width keeps each band inside the row (no subpixel overflow) */
+  .biography-row--lead .section-title {
+    width: calc(100% / 7);
+    max-width: calc(100% / 7);
+    margin-left: 0;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .biography-row--heading .subheading {
+    width: auto;
+    max-width: calc((100% / 7) * 2);
+    margin-left: calc(100% / 7);
+    margin-right: 0;
+    margin-bottom: 0;
+    font-size: clamp(1.85rem, 2.2vw, 2.75rem);
+    line-height: 1.12;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+  }
+
+  .biography-row--p1 .paragraph1 {
+    width: auto;
+    max-width: calc((100% / 7) * 2);
+    margin-left: calc((100% / 7) * 3);
+    margin-right: 0;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+  }
+
+  .biography-row--p2 .paragraph2 {
+    width: auto;
+    max-width: calc((100% / 7) * 2);
+    margin-left: calc((100% / 7) * 5);
+    margin-right: 0;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+  }
+
+  .services-section .subheading {
     margin-bottom: 100px;
-    width: 50%;
-    font-size: 4rem;
-    line-height: 4rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+    white-space: nowrap;
+    font-size: clamp(1.85rem, 2.2vw, 2.75rem);
+    line-height: 1.12;
+    text-align: center;
   }
 
   .icon-container {
