@@ -134,13 +134,8 @@ section {
   margin-top: 0;
 }
 
-.hero-image-wrap {
-  --hero-notch-r: clamp(58px, 17vw, 86px);
-  /* Circle center offset from top-right (larger = further into the portrait) */
-  --hero-notch-inset-x: 0px;
-  --hero-notch-inset-y: 0px;
-  /* Rotating ring slightly smaller than cutout → visible gap to portrait edge */
-  --hero-badge-scale: 0.86;
+/* Image + title share one column so the heading stays centred on the portrait */
+.hero-stack {
   position: absolute;
   left: 50%;
   /* top (not bottom): padding on .hero-section does not inset absolute children */
@@ -152,6 +147,19 @@ section {
   transform: translateX(-50%);
   width: 350px;
   max-width: min(350px, 85vw);
+  /* Block layout (not flex): lets the title use intrinsic width + auto margins so wide type spills evenly */
+  z-index: 1;
+}
+
+.hero-image-wrap {
+  --hero-notch-r: clamp(58px, 17vw, 86px);
+  /* Circle center offset from top-right (larger = further into the portrait) */
+  --hero-notch-inset-x: 0px;
+  --hero-notch-inset-y: 0px;
+  /* Rotating ring slightly smaller than cutout → visible gap to portrait edge */
+  --hero-badge-scale: 0.86;
+  position: relative;
+  width: 100%;
 }
 
 .hero-image {
@@ -241,15 +249,18 @@ section {
     padding-right: max(16px, env(safe-area-inset-right, 0px));
   }
 
+  .hero-stack {
+    top: max(92px, calc(env(safe-area-inset-top, 0px) + 68px));
+    /* Nudge stack slightly left so the ring clears the viewport edge */
+    transform: translate(calc(-50% - 10px), 12px);
+    max-width: min(350px, 82vw);
+  }
+
   .hero-image-wrap {
     --hero-notch-r: clamp(62px, 17vw, 86px);
     --hero-notch-inset-x: 28px;
     --hero-notch-inset-y: 22px;
     --hero-badge-scale: 0.92;
-    top: max(92px, calc(env(safe-area-inset-top, 0px) + 68px));
-    /* Nudge stack slightly left so the ring clears the viewport edge */
-    transform: translate(calc(-50% - 10px), 12px);
-    max-width: min(350px, 82vw);
   }
 
   .hero-rotating-badge__text {
@@ -273,20 +284,35 @@ section {
 /* ---------------------- Hero styling */
 
 #hero-title {
-  position: absolute;
-  left: 50%;
-  top: 75%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  /* Pull up so the headline crosses the bottom of the portrait */
+  margin-top: clamp(-3.25rem, -9vw, -1.75rem);
+  /* Slight left shift so the two-line block lines up optically with the portrait (badge weights the right) */
+  --hero-title-shift-x: clamp(8px, 1.6vw, 20px);
+  /* Wheel/scroll animation (hero.js updates this only) */
+  --hero-title-y: 0px;
+  transform: translateX(calc(-1 * var(--hero-title-shift-x)))
+    translateY(var(--hero-title-y));
   transition:
     opacity 0.5s ease,
     transform 0.5s ease;
   color: white;
   z-index: 5;
   text-align: center;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 #hero-title.fade-in {
   opacity: 1;
+}
+
+@media (max-width: 480px) {
+  #hero-title {
+    /* Stack is already nudged left on small screens */
+    --hero-title-shift-x: clamp(4px, 1vw, 12px);
+  }
 }
 
 /* ------------------------------------ */
@@ -1026,8 +1052,8 @@ li:hover span {
     padding: 200px 100px;
   }
   #hero-title {
-    max-width: min(50%, 22rem);
-    top: 70%;
+    margin-top: clamp(-3.75rem, -10vw, -2.25rem);
+    --hero-title-shift-x: clamp(12px, 2vw, 26px);
   }
 
   .hero-section {

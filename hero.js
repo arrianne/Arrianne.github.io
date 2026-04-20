@@ -16,9 +16,10 @@ window.addEventListener(
       let opacity = 1 - fakeScroll / fadeEnd;
       opacity = Math.max(minOpacity, Math.min(1, opacity));
       heroTitle.style.opacity = opacity;
-      heroTitle.style.transform = `translate(-50%, calc(-50% - ${
-        fakeScroll / 3
-      }px))`;
+      heroTitle.style.setProperty(
+        "--hero-title-y",
+        `${-fakeScroll / 3}px`
+      );
 
       if (fakeScroll >= fadeEnd) {
         animationDone = true;
@@ -31,14 +32,12 @@ window.addEventListener(
 window.addEventListener("scroll", function () {
   if (animationDone) {
     heroTitle.style.opacity = minOpacity;
-    heroTitle.style.transform = `translate(-50%, calc(-50% - ${
-      fadeEnd / 3
-    }px))`;
+    heroTitle.style.setProperty("--hero-title-y", `${-fadeEnd / 3}px`);
     if (window.scrollY === 0) {
       animationDone = false;
       fakeScroll = 0;
       heroTitle.style.opacity = 1;
-      heroTitle.style.transform = `translate(-50%, -50%)`;
+      heroTitle.style.setProperty("--hero-title-y", "0px");
     }
   }
 });
