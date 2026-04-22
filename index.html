@@ -21,20 +21,38 @@
   </head>
   <body>
     <header id="header">
-      <!-- Burger Menu Button -->
-      <div class="burger-menu" id="burger-menu">
-        <div class="line line-1"></div>
-        <div class="line line-2"></div>
-        <div class="line line-3"></div>
-      </div>
+      <a class="header__wordmark" href="#home">Arrianne</a>
 
-      <!-- Menu -->
-      <nav class="nav-menu" id="nav-menu">
-        <ul>
-          <li><a href="#about">About Me</a></li>
+      <button
+        type="button"
+        class="burger-menu"
+        id="burger-menu"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+      >
+        <span class="burger-menu__line" aria-hidden="true"></span>
+        <span class="burger-menu__line" aria-hidden="true"></span>
+      </button>
+
+      <nav class="nav-menu" id="nav-menu" aria-label="Site" aria-hidden="true">
+        <div class="nav-menu__top">
+          <a class="nav-menu__overlay-brand" href="#home">Arrianne</a>
+        </div>
+        <ul class="nav-menu__list">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About me</a></li>
           <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#experience">Experience</a></li>
           <li><a href="#contact">Contact</a></li>
+          <li>
+            <a
+              class="nav-menu__link--external"
+              href="https://github.com/arrianne"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub</a
+            >
+          </li>
         </ul>
       </nav>
     </header>
@@ -52,7 +70,7 @@
           >
           <span class="hero-pill-nav__sep" aria-hidden="true"></span>
           <a class="hero-pill-nav__link" href="#portfolio" data-nav-target="portfolio"
-            >Work</a
+            >Portfolio</a
           >
           <span class="hero-pill-nav__sep" aria-hidden="true"></span>
           <a class="hero-pill-nav__link" href="#contact" data-nav-target="contact"
@@ -198,7 +216,7 @@
           </div>
         </div>
         <div class="portfolio">
-        <div class="portfolio-item">
+        <div class="portfolio-item portfolio-item--openbook">
           <div class="portfolio-item-text">
             <h3 class="portfolio-item-title">Open Book</h3>
             <p class="portfolio-item-description">
@@ -230,14 +248,22 @@
             </div>
           </div>
           <div class="portfolio-item-image">
-            <img
-              src="images/Open-Book.png"
-              alt="Open Book project preview"
-            />
+            <video
+              class="portfolio-preview-video"
+              muted
+              playsinline
+              loop
+              preload="none"
+              poster="images/Open-Book.png"
+              aria-label="Open Book video preview"
+              data-video-lazy
+            >
+              <source data-src="images/openbook-video-mockup.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
 
-        <div class="portfolio-item">
+        <div class="portfolio-item portfolio-item--strataboost">
           <div class="portfolio-item-text">
             <h3 class="portfolio-item-title">StrataBoost</h3>
             <p class="portfolio-item-description">
@@ -267,14 +293,25 @@
             </div>
           </div>
           <div class="portfolio-item-image">
-            <img
-              src="images/strataboost.png"
-              alt="StrataBoost project preview"
-            />
+            <video
+              class="portfolio-preview-video"
+              muted
+              playsinline
+              loop
+              preload="none"
+              poster="images/strataboost.png"
+              aria-label="StrataBoost video preview"
+              data-video-lazy
+            >
+              <source
+                data-src="images/Strataboost-video-mockup.mp4"
+                type="video/mp4"
+              />
+            </video>
           </div>
         </div>
 
-        <div class="portfolio-item">
+        <div class="portfolio-item portfolio-item--arcadia">
           <div class="portfolio-item-text">
             <h3 class="portfolio-item-title">Arcadia building reports</h3>
             <p class="portfolio-item-description">
@@ -306,10 +343,21 @@
             </div>
           </div>
           <div class="portfolio-item-image">
-            <img
-              src="images/Arcadia-building-reports.png"
-              alt="Arcadia building reports project preview"
-            />
+            <video
+              class="portfolio-preview-video"
+              muted
+              playsinline
+              loop
+              preload="none"
+              poster="images/Arcadia-building-reports.png"
+              aria-label="Arcadia building reports video preview"
+              data-video-lazy
+            >
+              <source
+                data-src="images/Arcadia-video-mockup.mp4"
+                type="video/mp4"
+              />
+            </video>
           </div>
         </div>
 
@@ -549,7 +597,7 @@
           </a>
         </div>
 
-        <a class="footer-contact__back-top" href="#header">Back to the top</a>
+        <a class="footer-contact__back-top" href="#home">Back to the top</a>
 
         <div class="footer-contact__bottom">
           <div class="footer-contact__brandline">

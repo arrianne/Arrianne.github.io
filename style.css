@@ -1,6 +1,12 @@
 /* -----------------------------
    Base HTML Styles & CSS Reset
 ------------------------------ */
+/* Block horizontal page pan (full-bleed 100vw, iOS rubber-band) without relying on
+   scrollbar-gutter, which is inconsistent across browsers. */
+html {
+  overflow-x: hidden;
+}
+
 :root {
   /* Minimum viewport inset for the fixed pill (script.js); match safe-area feel */
   --pill-min-top: 20px;
@@ -20,7 +26,11 @@
 
 body {
   width: 100%;
+  max-width: 100%;
   margin: 0px;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+  touch-action: pan-y;
 }
 h1,
 h2,
@@ -84,6 +94,61 @@ section {
   background-color: white;
 }
 
+/* Mobile: reduce vertical section whitespace */
+@media screen and (max-width: 767px) {
+  section {
+    padding: 72px 50px;
+  }
+
+  .services-section .subheading {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    margin-bottom: 80px;
+  }
+
+  .services-section .icon-container .icon {
+    margin-bottom: 80px;
+  }
+
+  .services-section .icon-container .icon:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Section 01 (About): reduce the hero/spacer compensation gap on mobile */
+  .biography-section {
+    margin-top: max(
+      0px,
+      calc(
+        100vh - var(--pill-hero-start-y) - var(--pill-hero-title-gap) -
+          var(--pill-spacer-in-flow-h) - 3rem
+      )
+    );
+  }
+
+  /* Section 01 (About): tighten gap between "01" title and the subheading */
+  .biography-row--lead + .biography-row--heading {
+    margin-top: 0;
+  }
+
+  .biography-row--heading {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+  .portfolio {
+    margin-top: 28px;
+  }
+
+  .portfolio-item {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .portfolio-section .portfolio > .portfolio-item:first-of-type {
+    padding-top: 25px;
+  }
+}
+
 .section-inner {
   width: 100%;
   max-width: var(--content-max-width);
@@ -143,6 +208,7 @@ section {
   padding: 0 50px;
   /* Was -100px: pulled hero under sticky header + burger; keep flush below header */
   margin-top: 0;
+  overflow-x: clip;
 }
 
 /* Image + title share one column so the heading stays centred on the portrait */
@@ -289,7 +355,9 @@ section {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
   height: 100vh;
   z-index: 100;
   pointer-events: none; /* Let user interact with page normally */
@@ -315,6 +383,12 @@ section {
   pointer-events: none;
   flex-shrink: 0;
   min-height: 48px;
+}
+
+/* Scroll lock is handled in JS (body position: fixed) to avoid width jumping when
+   overflow:hidden removes the scrollbar. Extra guard on iOS. */
+body.nav-menu-open {
+  touch-action: none;
 }
 
 /* Viewport-fixed shell: only contains the pill, so fixed is never trapped by section/overflow ancestors */
@@ -1098,6 +1172,12 @@ section {
   padding-top: 100px;
 }
 
+@media screen and (max-width: 767px) {
+  .portfolio-section .portfolio > .portfolio-item:first-of-type {
+    padding-top: 25px;
+  }
+}
+
 .portfolio-item::before {
   content: "";
   position: absolute;
@@ -1178,9 +1258,17 @@ section {
 
 .portfolio-item-image img {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   object-fit: contain;
   background-color: transparent;
+}
+
+.portfolio-item-image video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background-color: transparent;
+  display: block;
 }
 
 .portfolio-btn {
@@ -1383,7 +1471,7 @@ section {
   .experience-section .job-date {
     position: absolute;
     left: 0;
-    top: 0.35rem;
+    top: 2rem;
     min-width: 0;
     transform: rotate(-90deg);
     transform-origin: left top;
@@ -1392,7 +1480,7 @@ section {
   }
 
   .experience-section .circle-line {
-    min-height: 220px;
+    min-height: 300px;
   }
 
   .experience-section .experience__job:hover .job-date {
@@ -1410,16 +1498,25 @@ section {
    Burger Menu Styles
 ------------------------------ */
 
-/* Fixed overlay: burger only (pill nav handles primary sticky navigation) */
+/* Fixed header: wordmark + burger (mobile). Pill nav = desktop. */
 header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1100;
+  z-index: 3000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: max(0.75rem, env(safe-area-inset-top, 0px) + 6px) max(1rem, env(safe-area-inset-right, 0px) + 6px) 0.5rem
+    max(1rem, env(safe-area-inset-left, 0px) + 6px);
   background: transparent;
-  padding: 0;
   pointer-events: none;
+  box-sizing: border-box;
+  transition:
+    background-color 0.25s ease,
+    backdrop-filter 0.25s ease,
+    -webkit-backdrop-filter 0.25s ease;
 }
 
 header > * {
@@ -1427,109 +1524,182 @@ header > * {
 }
 
 header.scrolled {
-  background: transparent;
+  background-color: rgba(0, 0, 0, 0.62);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  backdrop-filter: blur(14px) saturate(1.1);
   box-shadow: none;
 }
 
+/* Mobile: hide horizontal pill; burger drives navigation */
+@media screen and (max-width: 767px) {
+  .hero-pill-dock-host {
+    display: none !important;
+  }
+
+  /* Pin fixed UI to the same width as the layout (see --layout-width in script.js);
+     avoids the bar “sliding” when 100% vs vw disagree or the URL bar resizes. */
+  #header,
+  .nav-menu,
+  #hero-scroll {
+    right: auto;
+    width: var(--layout-width, 100%);
+    max-width: 100%;
+  }
+}
+
+.header__wordmark {
+  font-family: "Figtree", sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: none;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+
+.header__wordmark:hover,
+.header__wordmark:focus-visible {
+  color: #26a69a;
+  outline: none;
+}
+
 .burger-menu {
-  top: max(20px, env(safe-area-inset-top, 0px) + 8px);
-  left: max(20px, env(safe-area-inset-left, 0px) + 8px);
+  --burger-gap: 5px;
+  position: relative;
   margin: 0;
+  padding: 0;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: fixed;
-  width: 30px;
-  height: 22px;
-  z-index: 1200;
+  width: 28px;
+  height: calc(2px * 2 + var(--burger-gap));
+  z-index: 3200;
+  border: none;
+  background: transparent;
 }
 
-.burger-menu.scrolled {
-  background-color: transparent;
+.burger-menu__line {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 1px;
+  transition: transform 0.3s ease, opacity 0.2s ease, background-color 0.2s ease;
+  transform-origin: center;
 }
 
-.burger-menu .line {
-  height: 4px;
-  background-color: #ffffff;
-  transition: all 0.3s ease;
+.burger-menu.open .burger-menu__line:nth-child(1) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
 }
 
-.burger-menu .line-2 {
-  width: 20px;
+.burger-menu.open .burger-menu__line:nth-child(2) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
 }
 
-.burger-menu.open .line {
-  background-color: var(--white);
-}
-
-.burger-menu.open .line-1 {
-  transform: translateY(9px) rotate(45deg);
-}
-
-.burger-menu.open .line-2 {
-  opacity: 0;
-}
-
-.burger-menu.open .line-3 {
-  transform: translateY(-9px) rotate(-45deg);
-}
-
-/* Change burger lines to white when scrolled */
-header.scrolled .burger-menu .line {
-  background-color: var(--white);
+header.scrolled .burger-menu__line {
+  background-color: #fff;
 }
 
 /* -----------------------------
-   Navigation Menu
+   Full-screen mobile menu
 ------------------------------ */
 .nav-menu {
   position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: var(--black);
-  transform: translateX(-100%);
-  transition: transform 0.5s ease-in-out;
-  z-index: 1000;
+  inset: 0;
+  z-index: 3100;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: max(0.75rem, env(safe-area-inset-top, 0px) + 6px) max(1rem, env(safe-area-inset-right, 0px) + 6px)
+    max(1.25rem, env(safe-area-inset-bottom, 0px) + 8px) max(1rem, env(safe-area-inset-left, 0px) + 6px);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0; /* Remove top padding so it's truly centered */
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #050505;
+  /* Fully off-canvas; html { overflow-x: hidden } avoids horizontal page scroll. */
+  transform: translate3d(-100%, 0, 0);
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.4s ease, visibility 0.4s;
 }
 
 .nav-menu.open {
-  transform: translateX(0);
-  width: 100%;
+  transform: translate3d(0, 0, 0);
+  visibility: visible;
+  pointer-events: auto;
 }
 
-.nav-menu ul {
+.nav-menu__overlay-brand {
+  font-family: "Figtree", sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  align-self: flex-start;
+  padding: 0.15rem 0;
+}
+
+.nav-menu__overlay-brand:hover,
+.nav-menu__overlay-brand:focus-visible {
+  color: #26a69a;
+  outline: none;
+}
+
+.nav-menu__top {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  min-height: 2.25rem;
+}
+
+.nav-menu__list {
   list-style: none;
   padding: 0;
   margin: 0;
-
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: clamp(0.5rem, 3vh, 1.5rem);
 }
 
-.nav-menu ul li {
-  margin: 20px 0;
-  font-family: var(--small-subheadings);
-  font-weight: 200;
+.nav-menu__list li {
+  margin: 0;
+  font-family: "Figtree", var(--small-subheadings);
+  font-weight: 400;
+  text-align: center;
 }
 
-.nav-menu ul li a {
-  color: var(--white);
+.nav-menu__list a {
+  color: #fff;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: clamp(1.25rem, 4.5vw, 1.65rem);
+  letter-spacing: 0.04em;
 }
 
-.nav-menu a:hover {
-  color: var(--white);
+.nav-menu__list a:hover,
+.nav-menu__list a:focus-visible {
+  color: #26a69a;
+  outline: none;
 }
+
 
 /* -----------------------------
    Button
@@ -1555,7 +1725,8 @@ button:hover {
     padding: 200px 100px;
   }
 
-  /* Burger menu only on mobile */
+  /* Burger + full-screen menu only on mobile */
+  .header__wordmark,
   .burger-menu,
   .nav-menu {
     display: none !important;
@@ -1690,13 +1861,13 @@ button:hover {
   .portfolio-item {
     flex-direction: row;
     align-items: center;
-    gap: 80px;
+    gap: 60px;
     padding-top: 200px;
     padding-bottom: 200px;
   }
 
   .portfolio-item-text {
-    flex: 0 1 44%;
+    flex: 0 1 30%;
     min-width: 0;
   }
 
@@ -1713,8 +1884,13 @@ button:hover {
   }
 
   .portfolio-item-image {
-    flex: 0 1 52%;
+    flex: 0 1 66%;
     min-width: 0;
+  }
+
+  /* Nudge Strataboost preview up to align with title */
+  .portfolio-item--strataboost .portfolio-item-image {
+    margin-top: clamp(-36px, -2.2vw, -18px);
   }
 
   .portfolio-item.fade-in {

@@ -3,7 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const header = document.getElementById("header");
   const burgerMenu = document.getElementById("burger-menu");
   const navMenu = document.getElementById("nav-menu");
-  const navLinks = document.querySelectorAll(".nav-menu a, .hero-pill-nav a");
+  const navLinks = document.querySelectorAll(
+    ".header__wordmark, .nav-menu a, .hero-pill-nav a"
+  );
   const pillNav = document.getElementById("hero-pill-nav");
   const pillHost = document.getElementById("hero-pill-dock-host");
   const pillSpacer = document.getElementById("pill-nav-spacer");
@@ -53,13 +55,137 @@ document.addEventListener("DOMContentLoaded", () => {
     portfolioItems.forEach((item) => observer.observe(item));
   }
 
-  // Burger menu toggle
-  if (burgerMenu && navMenu) {
-    burgerMenu.addEventListener("click", () => {
-      burgerMenu.classList.toggle("open");
-      navMenu.classList.toggle("open");
+  /* Lazy-load + politely autoplay portfolio preview videos */
+  const lazyVideos = document.querySelectorAll("video[data-video-lazy]");
+  if (lazyVideos.length > 0) {
+    const prefersReducedMotion =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const saveData =
+      navigator.connection && navigator.connection.saveData === true;
+
+    const loadVideo = (videoEl) => {
+      if (!videoEl || videoEl.dataset.videoLoaded === "true") return;
+      const source = videoEl.querySelector("source[data-src]");
+      if (!source) return;
+      source.src = source.dataset.src;
+      source.removeAttribute("data-src");
+      videoEl.load();
+      videoEl.dataset.videoLoaded = "true";
+    };
+
+    const maybeAutoplay = async (videoEl) => {
+      if (!videoEl) return;
+      if (prefersReducedMotion || saveData) return;
+      try {
+        await videoEl.play();
+      } catch (_) {
+        // Autoplay can be blocked; that's fine (poster will show).
+      }
+    };
+
+    if (typeof IntersectionObserver !== "undefined") {
+      const videoObserver = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const videoEl = entry.target;
+            loadVideo(videoEl);
+            maybeAutoplay(videoEl);
+            obs.unobserve(videoEl);
+          });
+        },
+        { rootMargin: "250px 0px", threshold: 0.01 }
+      );
+
+      lazyVideos.forEach((v) => videoObserver.observe(v));
+    } else {
+      // Fallback for older browsers: just load immediately.
+      lazyVideos.forEach((v) => {
+        loadVideo(v);
+        maybeAutoplay(v);
+      });
+    }
+  }
+
+  let menuScrollY = 0;
+
+  /** On narrow viewports, lock fixed chrome to measured width (incl. visualViewport on iOS). */
+  function syncFixedShellWidth() {
+    if (window.innerWidth >= 768) {
+      document.documentElement.style.removeProperty("--layout-width");
+      if (header) {
+        header.style.removeProperty("width");
+      }
+      return;
+    }
+    const vv = window.visualViewport;
+    const w = vv
+      ? Math.max(0, Math.round(vv.width))
+      : document.documentElement.clientWidth;
+    document.documentElement.style.setProperty("--layout-width", `${w}px`);
+  }
+
+  function setMenuOpen(open) {
+    if (!burgerMenu || !navMenu) return;
+    const wasOpen = navMenu.classList.contains("open");
+    burgerMenu.classList.toggle("open", open);
+    navMenu.classList.toggle("open", open);
+    burgerMenu.setAttribute("aria-expanded", open ? "true" : "false");
+    burgerMenu.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    navMenu.setAttribute("aria-hidden", open ? "false" : "true");
+    if ("inert" in navMenu) {
+      navMenu.inert = !open;
+    }
+    document.documentElement.classList.toggle("nav-menu-open", open);
+    document.body.classList.toggle("nav-menu-open", open);
+
+    if (open) {
+      if (window.innerWidth < 768) {
+        menuScrollY = window.scrollY || document.documentElement.scrollTop;
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${menuScrollY}px`;
+        document.body.style.left = "0";
+        document.body.style.right = "0";
+        document.body.style.width = "100%";
+      }
+    } else {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
+      if (wasOpen) {
+        window.scrollTo(0, menuScrollY);
+      }
+    }
+
+    requestAnimationFrame(() => {
+      syncFixedShellWidth();
     });
   }
+
+  if (burgerMenu && navMenu) {
+    burgerMenu.addEventListener("click", () => {
+      setMenuOpen(!navMenu.classList.contains("open"));
+    });
+  }
+
+  if (navMenu) {
+    navMenu.addEventListener("click", (e) => {
+      const a = e.target.closest("a");
+      if (a && navMenu.contains(a)) {
+        setMenuOpen(false);
+      }
+    });
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && navMenu && navMenu.classList.contains("open")) {
+      setMenuOpen(false);
+    }
+  });
+
 
   function pillMinTopPx() {
     const raw = getComputedStyle(document.documentElement)
@@ -84,6 +210,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   window.addEventListener("scroll", () => {
+    if (navMenu && navMenu.classList.contains("open")) {
+      return;
+    }
     if (window.scrollY > 10) {
       header.classList.add("scrolled");
     } else {
@@ -91,13 +220,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     syncPillToSpacer();
   });
-  window.addEventListener("resize", syncPillToSpacer, { passive: true });
+  function onResizeOrViewport() {
+    if (window.innerWidth >= 768) {
+      setMenuOpen(false);
+    }
+    syncPillToSpacer();
+    syncFixedShellWidth();
+  }
+
+  window.addEventListener("resize", onResizeOrViewport, { passive: true });
+  window.addEventListener(
+    "orientationchange",
+    () => {
+      setTimeout(() => {
+        onResizeOrViewport();
+      }, 200);
+    },
+    { passive: true }
+  );
   if (window.visualViewport) {
-    window.visualViewport.addEventListener("resize", syncPillToSpacer);
-    window.visualViewport.addEventListener("scroll", syncPillToSpacer);
+    window.visualViewport.addEventListener("resize", onResizeOrViewport, {
+      passive: true,
+    });
+    window.visualViewport.addEventListener("scroll", syncPillToSpacer, {
+      passive: true,
+    });
+    window.visualViewport.addEventListener("scroll", syncFixedShellWidth, {
+      passive: true,
+    });
   }
   syncPillToSpacer();
-  requestAnimationFrame(syncPillToSpacer);
+  syncFixedShellWidth();
+  requestAnimationFrame(() => {
+    syncPillToSpacer();
+    syncFixedShellWidth();
+  });
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(syncPillToSpacer);
   }
@@ -124,23 +281,26 @@ document.addEventListener("DOMContentLoaded", () => {
       if (targetSection) {
         event.preventDefault();
 
-        if (targetId === "home") {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        } else {
+        const doScroll = () => {
+          if (targetId === "home") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            return;
+          }
           const offset = scrollOffsetForAnchors();
           const elementPosition =
             targetSection.getBoundingClientRect().top + window.pageYOffset;
           const offsetPosition = Math.max(0, elementPosition - offset);
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+        };
 
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
+        // On mobile, close the menu FIRST (it restores scroll position) then scroll.
+        if (navMenu && navMenu.classList.contains("open")) {
+          setMenuOpen(false);
+          requestAnimationFrame(() => {
+            requestAnimationFrame(doScroll);
           });
-        }
-
-        if (burgerMenu && navMenu) {
-          burgerMenu.classList.remove("open");
-          navMenu.classList.remove("open");
+        } else {
+          doScroll();
         }
       }
     });
@@ -191,4 +351,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", onScrollHome, { passive: true });
     onScrollHome();
   }
+
+  setMenuOpen(false);
 });
