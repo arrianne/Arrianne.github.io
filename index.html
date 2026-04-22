@@ -38,7 +38,39 @@
         </ul>
       </nav>
     </header>
-    <section class="hero-section">
+
+    <!-- Fixed to viewport (avoids broken fixed/sticky inside nested layout). Position synced to #pill-nav-spacer in JS. -->
+    <div id="hero-pill-dock-host" class="hero-pill-dock-host">
+      <nav class="hero-pill-nav" id="hero-pill-nav" aria-label="Primary">
+        <div class="hero-pill-nav__scroll">
+          <a class="hero-pill-nav__link is-active" href="#home" data-nav-target="home"
+            >Home</a
+          >
+          <span class="hero-pill-nav__sep" aria-hidden="true"></span>
+          <a class="hero-pill-nav__link" href="#about" data-nav-target="about"
+            >About me</a
+          >
+          <span class="hero-pill-nav__sep" aria-hidden="true"></span>
+          <a class="hero-pill-nav__link" href="#portfolio" data-nav-target="portfolio"
+            >Work</a
+          >
+          <span class="hero-pill-nav__sep" aria-hidden="true"></span>
+          <a class="hero-pill-nav__link" href="#contact" data-nav-target="contact"
+            >Contact</a
+          >
+          <span class="hero-pill-nav__sep" aria-hidden="true"></span>
+          <a
+            class="hero-pill-nav__link hero-pill-nav__link--external"
+            href="https://github.com/arrianne"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub<span class="hero-pill-nav__ext" aria-hidden="true">&#8599;</span></a
+          >
+        </div>
+      </nav>
+    </div>
+
+    <section class="hero-section" id="home">
       <div id="hero-scroll"></div>
       <div class="hero-stack">
         <div class="hero-image-wrap">
@@ -75,10 +107,13 @@
           </div>
         </div>
         <h1 id="hero-title">Hello<br />there.</h1>
-        <span class="down-arrow" aria-hidden="true">&#8595;</span>
       </div>
     </section>
-    <section class="biography-section" id="about">
+
+    <div class="post-hero">
+      <div id="pill-nav-spacer" class="pill-nav-spacer" aria-hidden="true"></div>
+
+      <section class="biography-section" id="about">
       <div class="section-inner">
         <div class="biography-row biography-row--lead">
           <div class="section-title">
@@ -533,6 +568,7 @@
         </div>
       </div>
     </section>
+    </div>
     <script src="script.js"></script>
     <script src="hero.js"></script>
     <script src="fade-in.js"></script>
