@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <link rel="stylesheet" href="./style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -235,14 +238,14 @@
                 href="https://openbookapp.netlify.app"
                 class="portfolio-btn"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 >View site</a
               >
               <a
                 href="https://github.com/SheCodesAus/debug-a-lotl-frontend"
                 class="portfolio-btn"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 >View repo</a
               >
             </div>
@@ -280,14 +283,14 @@
                 href="https://strataboost.netlify.app"
                 class="portfolio-btn"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 >View site</a
               >
               <a
                 href="https://github.com/arrianne/crowdfunding_frontend"
                 class="portfolio-btn"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 >View repo</a
               >
             </div>
@@ -330,14 +333,14 @@
                 href="https://www.arcadiabuildingreports.com.au"
                 class="portfolio-btn"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 >View site</a
               >
               <a
                 href="https://github.com/arrianne/Arcadia"
                 class="portfolio-btn"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 >View repo</a
               >
             </div>
@@ -376,10 +379,21 @@
             <p class="portfolio-item-building">currently building</p>
           </div>
           <div class="portfolio-item-image">
-            <img
-              src="images/the-swing-era.png"
-              alt="The Swing Era — WordPress redesign preview"
-            />
+            <video
+              class="portfolio-preview-video"
+              muted
+              playsinline
+              loop
+              preload="none"
+              poster="images/the-swing-era.png"
+              aria-label="The Swing Era video preview"
+              data-video-lazy
+            >
+              <source
+                data-src="images/swing-era-video-mockup.mp4"
+                type="video/mp4"
+              />
+            </video>
           </div>
         </div>
       </div>
