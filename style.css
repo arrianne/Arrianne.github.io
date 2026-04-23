@@ -216,10 +216,7 @@ section {
   position: absolute;
   left: 50%;
   /* top (not bottom): padding on .hero-section does not inset absolute children */
-  top: max(
-    160px,
-    calc(env(safe-area-inset-top, 0px) + 136px)
-  );
+  top: max(160px, calc(env(safe-area-inset-top, 0px) + 136px));
   bottom: auto;
   transform: translateX(-50%);
   width: 350px;
@@ -293,17 +290,20 @@ section {
 .hero-rotating-badge__text {
   fill: #ffffff;
   font-family: "Figtree", sans-serif;
-  font-size: clamp(10px, 2.65vw, 13.5px);
+  /* hero.js sets textLength + lengthAdjust=spacing. Wider tracking on desktop helps fill the ring */
+  font-size: clamp(11.25px, 3.05vw, 18px);
   font-weight: 500;
-  letter-spacing: 0.22em;
-  word-spacing: 0.26em;
+  letter-spacing: 0.17em;
+  word-spacing: 0.12em;
+  text-rendering: geometricPrecision;
   text-transform: uppercase;
 }
 
-.hero-rotating-badge__dot {
-  font-size: 1.12em;
-  letter-spacing: 0;
-  word-spacing: 0;
+@media (min-width: 768px) {
+  .hero-rotating-badge__text {
+    letter-spacing: 0.22em;
+    word-spacing: 0.15em;
+  }
 }
 
 @keyframes hero-badge-spin {
@@ -336,6 +336,15 @@ section {
   }
 }
 
+/* Large phones / small tablets: smaller type on the tight curve, wider tracking */
+@media screen and (max-width: 767px) and (min-width: 481px) {
+  .hero-rotating-badge__text {
+    font-size: clamp(10px, 2.5vw, 13.5px);
+    letter-spacing: 0.2em;
+    word-spacing: 0.13em;
+  }
+}
+
 /* Narrow phones: cutout + ring sit further inside the frame */
 @media (max-width: 480px) {
   .hero-section {
@@ -359,10 +368,11 @@ section {
   }
 
   .hero-rotating-badge__text {
-    font-size: clamp(12px, 3.75vw, 15px);
+    /* Smaller on tight rings → less stretch/warp; tracking fills the path with hero.js */
+    font-size: clamp(8.75px, 2.35vw, 11.5px);
     font-weight: 600;
-    letter-spacing: 0.15em;
-    word-spacing: 0.18em;
+    letter-spacing: 0.24em;
+    word-spacing: 0.15em;
   }
 }
 
@@ -391,7 +401,9 @@ section {
   width: 100%;
   max-width: 100%;
   /* Slot top = hero bottom (100vh) + margin-top → place under the hero title */
-  margin-top: calc(var(--pill-hero-start-y) - 100vh + var(--pill-hero-title-gap));
+  margin-top: calc(
+    var(--pill-hero-start-y) - 100vh + var(--pill-hero-title-gap)
+  );
   margin-bottom: clamp(0.5rem, 1.5vh, 1.1rem);
   padding: 0 clamp(12px, 3vw, 28px);
   box-sizing: border-box;
@@ -446,7 +458,9 @@ body.nav-menu-open {
   text-transform: uppercase;
 }
 
-@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+@supports not (
+  (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))
+) {
   .hero-pill-nav {
     background: rgba(30, 30, 32, 0.82);
   }
@@ -816,7 +830,8 @@ body.nav-menu-open {
 .footer-contact__marquee-track {
   display: flex;
   width: max-content;
-  animation: footer-contact-marquee var(--footer-marquee-duration) linear infinite;
+  animation: footer-contact-marquee var(--footer-marquee-duration) linear
+    infinite;
   will-change: transform;
 }
 
@@ -1537,7 +1552,8 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: max(0.75rem, env(safe-area-inset-top, 0px) + 6px) max(1rem, env(safe-area-inset-right, 0px) + 6px) 0.5rem
+  padding: max(0.75rem, env(safe-area-inset-top, 0px) + 6px)
+    max(1rem, env(safe-area-inset-right, 0px) + 6px) 0.5rem
     max(1rem, env(safe-area-inset-left, 0px) + 6px);
   background: transparent;
   pointer-events: none;
@@ -1615,7 +1631,10 @@ header.scrolled {
   width: 100%;
   background-color: #fff;
   border-radius: 1px;
-  transition: transform 0.3s ease, opacity 0.2s ease, background-color 0.2s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.2s ease,
+    background-color 0.2s ease;
   transform-origin: center;
 }
 
@@ -1652,8 +1671,10 @@ header.scrolled .burger-menu__line {
   max-width: 100%;
   box-sizing: border-box;
   margin: 0;
-  padding: max(0.75rem, env(safe-area-inset-top, 0px) + 6px) max(1rem, env(safe-area-inset-right, 0px) + 6px)
-    max(1.25rem, env(safe-area-inset-bottom, 0px) + 8px) max(1rem, env(safe-area-inset-left, 0px) + 6px);
+  padding: max(0.75rem, env(safe-area-inset-top, 0px) + 6px)
+    max(1rem, env(safe-area-inset-right, 0px) + 6px)
+    max(1.25rem, env(safe-area-inset-bottom, 0px) + 8px)
+    max(1rem, env(safe-area-inset-left, 0px) + 6px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1662,7 +1683,9 @@ header.scrolled .burger-menu__line {
   transform: translate3d(-100%, 0, 0);
   visibility: hidden;
   pointer-events: none;
-  transition: transform 0.4s ease, visibility 0.4s;
+  transition:
+    transform 0.4s ease,
+    visibility 0.4s;
 }
 
 .nav-menu.open {
@@ -1728,7 +1751,6 @@ header.scrolled .burger-menu__line {
   color: #26a69a;
   outline: none;
 }
-
 
 /* -----------------------------
    Button
